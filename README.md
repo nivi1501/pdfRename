@@ -7,7 +7,7 @@ This application uses internet for extracting conference, year, author name and 
 
 Installation
 
-Linux:
+### Linux:
 
 Download the repository
 
@@ -76,7 +76,7 @@ More about rules and database
 The database contains two columns namely full-name and acronym
 whenever conference name have same words as one of the record of database(full-name) it is abbrevited accordingly.
 
-Windows:
+### Windows:
 
 Download the repository and extract it.
 
