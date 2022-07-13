@@ -1,0 +1,10 @@
+Usage: pdfrename [OPTION]... [FILE]  OR pdfrename [FILE]
+Renames pdf file into format      year_conference_author_topic
+-a, --all                 run the command on all files in the directory
+-c, --complete            returns full title
+-d, --delete              deletes the rules from database
+-f, --force               force rename the files even when in correct format
+-h, --help                gives information about the command
+-p, --print               prints the database
+-u, --update              update the existing rules or adds new one
+-v, --version             show the current version

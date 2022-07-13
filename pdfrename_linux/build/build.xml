@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="rename" default="build" basedir=".">
+    <path id="classpath">
+       <pathelement location="lib/apache-commons-lang.jar"/>
+       <pathelement location="lib/com.lowagie.text-2.1.7.jar"/>
+       <pathelement location="lib/jsoup-1.11.3.jar"/>
+       <pathelement location="lib/pdfbox-app-2.0.9.jar"/>  
+    </path>
+    <target name="clean">
+        <delete dir="bin"/>
+        <delete dir="src"/>
+        <delete dir="lib"/>
+        <delete dir="jar"/>
+    </target>
+    
+    <target name="create" depends="clean">
+        <mkdir dir="bin"/>
+        <mkdir dir="src"/>
+        <mkdir dir="lib"/>
+        <mkdir dir="jar"/>
+    </target>
+    
+    <target name="copy" depends="create">
+    <copydir dest="src" src="./../src/rename"></copydir>
+    <copydir dest="lib" src="./../src/lib"></copydir> 
+    <copydir dest="jar" src="./../src/data"/>   
+    </target>
+    
+    <target name="compile" depends="copy">
+        <javac srcdir="src" destdir="bin" classpathref="classpath"/>    
+    </target>
+    
+    <target name="buildone" depends="compile" description="Create one big jarfile.">
+    <jar jarfile="jar/deps.jar">
+        <zipgroupfileset dir="lib">
+            <include name="**/*.jar" />
+        </zipgroupfileset>
+    </jar>
+</target>
+
+
+<target name="build" description="Create one big jarfile." depends="buildone">
+<property name ="version.num" value="1.00" />
+<tstamp>
+    <format property ="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+</tstamp>
+<manifest file="jar/MANIFEST.MF">
+            <attribute name="Main-Class" value="rename.Rename" />
+            <attribute name="Implementation-Version" value="${version.num}" />
+            <attribute name="Built-Date" value="${TODAY}" />
+        </manifest>
+    <jar jarfile="jar/rename.jar" basedir="bin" manifest="jar/MANIFEST.MF">
+        <zipfileset src="jar/deps.jar" excludes="META-INF/*.SF" />    
+    </jar>
+</target>
+
+</project>
