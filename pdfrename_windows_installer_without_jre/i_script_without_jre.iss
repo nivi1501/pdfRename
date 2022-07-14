@@ -44,7 +44,7 @@ Source: "C:\Users\Teja\Desktop\pdfrename_w\*"; DestDir: "{app}"; Flags: ignoreve
 Root: HKCR; Subkey: "*\shell\pdfrename_win\command";   ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 
 [Icons]
-Name: "{usersendto}\My Prog"; Filename: "{app}\MyProg.exe" 
+Name: "{usersendto}\pdfrename_w"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
