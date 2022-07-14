@@ -4,6 +4,9 @@
 
 When we download a research paper in pdf format, the file name provides no clue of the article's topic. This application addresses the issue by renaming the PDF using the format 'YEAR_CONFERENCE_AUTHOR_TITLE'. This application extracts conference, year, author name, and title information from the Internet.
 
+## Prerequisite
+JDK-18
+
 ## Installation
 
 ### Linux:
@@ -54,6 +57,7 @@ Features on windows:
 * Pdfrename action in the right click context menu of files.
 * You can select multiple files and rename them from 'Send to -> pdfrename' in right click context menu.
 * Dedicated GUI to walkthrough each step of renaming the pdf file with clear messages.
+* In the end of the execution a window with 'Execution Completed. Exiting pdfrename'.
 
 Steps for Windows:
 
