@@ -36,7 +36,6 @@ public class pdfToText
             PdfImportedPage page = writer.getImportedPage(reader, ++i);
             writer.addPage(page);
         } catch (Exception ee1) {
-            System.out.println("entered exception case why");
             System.out.println("unable to access file please make sure that file is not being accessed by another program and is a pdf");
             System.out.println("Unable to rename file");
             System.exit(0);

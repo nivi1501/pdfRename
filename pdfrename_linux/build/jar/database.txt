@@ -362,3 +362,6 @@ Computer Aided Modeling Communication Networks,CAMAD
 Computer Aided Control System Design,CACSD
 Mobile Middleware Operating Applications,MOBILWARE
 ICRA,ICRA
+Multidisciplinary respiratory medicine,DOAJ
+Transactions Geoscience Remote Sensing,GRSS
+IJCSIT ternational Journal Computer Science formation Technologies,TERNATIONAL

@@ -1,25 +1,9 @@
 #!/bin/bash
-REQUIRED_PKG="ant"
-echo Checking for $REQUIRED_PKG: $PKG_OK
-PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
-if [ "" = "$PKG_OK" ]; then
-  echo "Package $REQUIRED_PKG not installed, install it and run again."
-  echo "To install run: sudo apt install $REQUIRED_PKG"
-  exit
-fi
-
-if [ -f pdfrename.sh ] 
-then
-    echo "pdfrename already installed. Overwriting the old version.."
-fi
-
 cat > ""$(pwd)"/pdfrename.sh" << EOT
 #!/bin/bash
-
 jarfileaddress="$(pwd)/build/jar"
 deletefileone=""
 deletefiletwo=""
-
 if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
   echo "Internet is up"
     var=\$http_proxy
@@ -73,14 +57,6 @@ else
   exit
 fi
 
-count=0
-for i in "\$@"
-do
-if  [[ -f "\$i" ]]
-then  
-    count=\$(( \$count + 1))
-fi
-done
 
 if [ \$# -eq 0 ]
 then
@@ -103,27 +79,6 @@ then
         rm "\$deletefiletwo"
         rm "\$deletefileone"
     fi
-elif [ \$count -eq \$# ] 
-then
-    echo "passed *.pdf"
-    current="\$(pwd)"
-    echo "'\$(pwd)'"
-    goback="\$(pwd)"
-    find "\$(pwd)" -maxdepth 1 -type f -exec echo "{}" >> temp.txt \;
-    while IFS='' read -r line || [ -n "\$line" ]; do
-        if [ "\${line:(-4)}" == ".pdf" ]
-        then
-            echo " Working on \$line"
-            cd \$jarfileaddress
-            java -jar rename.jar \$is_proxy "\$b" "\$portf" "\$line"
-            deletefileone="\${line%.*}-001.pdf"
-            deletefiletwo="\${line%.*}-002.pdf"
-            rm "\$deletefiletwo"
-            rm "\$deletefileone"
-        fi
-        done < temp.txt
-    cd "\$goback"
-    rm temp.txt
 elif [ \$# -eq 2 ]
 then
     if [ "\$1" = "--delete" ] || [ "\$1" = "-d" ]
@@ -206,7 +161,7 @@ fi
 EOT
 chmod +x pdfrename.sh
 cp pdfrename.sh ~/.local/bin/pdfrename.sh
-echo "alias pdfrename=\"bash ~/.local/bin/pdfrename.sh\"" >> ~/.bashrc
+echo "alias pdfrename="pdfrename.sh"" >> ~/.bashrc
 touch ~/.pdfrename.conf
 . ~/.bashrc
 

@@ -1,9 +1,7 @@
 #!/bin/bash
-
-jarfileaddress="/home/teja/Documents/iitd/minorproject/final_pdfrename/pdfrename/build/jar"
+jarfileaddress="/home/teja/Documents/iitd/minorproject/pdfrename/build/jar"
 deletefileone=""
 deletefiletwo=""
-
 if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
   echo "Internet is up"
     var=$http_proxy
@@ -57,14 +55,6 @@ else
   exit
 fi
 
-count=0
-for i in "$@"
-do
-if  [[ -f "$i" ]]
-then  
-    count=$(( $count + 1))
-fi
-done
 
 if [ $# -eq 0 ]
 then
@@ -87,27 +77,6 @@ then
         rm "$deletefiletwo"
         rm "$deletefileone"
     fi
-elif [ $count -eq $# ] 
-then
-    echo "passed *.pdf"
-    current="$(pwd)"
-    echo "'$(pwd)'"
-    goback="$(pwd)"
-    find "$(pwd)" -maxdepth 1 -type f -exec echo "{}" >> temp.txt \;
-    while IFS='' read -r line || [ -n "$line" ]; do
-        if [ "${line:(-4)}" == ".pdf" ]
-        then
-            echo " Working on $line"
-            cd $jarfileaddress
-            java -jar rename.jar $is_proxy "$b" "$portf" "$line"
-            deletefileone="${line%.*}-001.pdf"
-            deletefiletwo="${line%.*}-002.pdf"
-            rm "$deletefiletwo"
-            rm "$deletefileone"
-        fi
-        done < temp.txt
-    cd "$goback"
-    rm temp.txt
 elif [ $# -eq 2 ]
 then
     if [ "$1" = "--delete" ] || [ "$1" = "-d" ]

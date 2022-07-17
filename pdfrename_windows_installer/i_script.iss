@@ -12,7 +12,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{89273439-1944-42B2-A274-7EB658852E41}
+AppId={{64AB48BB-D11F-4165-A4B7-543470496C10}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -37,7 +37,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\Users\Teja\Desktop\pdfrename_windows\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Teja\Desktop\pdfrename_windows\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs;Permissions: everyone-full
+Source: "C:\Users\Teja\Desktop\pdfrename_windows\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Permissions: everyone-full
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
