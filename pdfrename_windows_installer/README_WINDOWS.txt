@@ -1,5 +1,6 @@
-For Windows-10:
-
+**********************************************
+******************For Windows-10:*************
+**********************************************
 For single file:
 
 --> Right click on the pdf --> select pdfrename_windows --> Choose proxy option yes or no --> If yes --> Enter Your Proxy details --> Renaming process starts.
@@ -13,8 +14,9 @@ For multiple files:
 														|
 														|---> If no --> Renaming process starts for multiple files.
 
-
-For windows-11:
+*****************************************
+*************For windows-11:************
+***************************************
 
 For single files:
 
