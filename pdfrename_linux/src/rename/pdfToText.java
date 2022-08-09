@@ -59,7 +59,9 @@ public class pdfToText
         String parsedText  = null;
         File file = new File(s);
         try {
-            parser = new PDFParser(new RandomAccessFile(file, "r"));
+             RandomAccessFile raf = new RandomAccessFile(file, "r");
+            //parser = new PDFParser(new RandomAccessFile(file, "r"));
+            parser = new PDFParser(raf);
             parser.parse();
             cosDoc = parser.getDocument();
             pdfStripper = new PDFTextStripper();
@@ -68,6 +70,8 @@ public class pdfToText
             fromText = parsedText;
             cosDoc.close();
             pdDoc.close();
+            raf.close();
+            file.delete();
         } catch (Exception e) {
             try {
                 if (cosDoc != null) {

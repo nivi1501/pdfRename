@@ -1,46 +1,32 @@
 #!/bin/bash
-jarfileaddress="/home/teja/Documents/iitd/minorproject/pdfrename/build/jar"
+
+title1="********************************************************"
+title2="************************pdfrename***********************"
+title3="********************************************************"
+
+end_title="##################-------------------###################"
+
+COLUMNS=$(tput cols)
+echo "$title1"
+echo "$title2"
+echo "$title3"
+
+
+jarfileaddress="/home/teja/Documents/iitd/minorproject/final_pdfrename/pdfrename/build/jar"
 deletefileone=""
 deletefiletwo=""
+
 if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
   echo "Internet is up"
-    var=$http_proxy
+  var=$http_proxy
     if [ "$var" = "" ]
     then
         echo "no proxy"
-        echo "Do you want to connect to a proxy? yes|no"
-        read proxy_flag
-        if [ "$proxy_flag" = "no" ]
-        then 
-            is_proxy=false
-            a=0
-            b=0
-            port=0
-            portf=0
-        elif [ "$proxy_flag" = "yes" ]
-        then
-            echo "Using the saved proxy: yes|no"
-            echo "Saved Proxies: $(cat ~/.pdfrename.conf)"
-            read prev_proxy
-            if [ "$prev_proxy" = "yes" ]
-            then
-                export http_proxy=$(cat ~/.pdfrename.conf)
-            else
-                echo "Enter proxy URL"
-                read proxy_url
-                export http_proxy=$proxy_url
-                echo $proxy_url > ~/.pdfrename.conf
-            fi
-            var=$http_proxy
-            echo $var
-            is_proxy=true
-            a="${var%:*}"
-            b="${a#*//}"
-            port="${var##*:}"
-            portf="${port%/*}"
-            echo $b
-            echo $portf
-        fi
+        is_proxy=false
+        a=0
+        b=0
+        port=0
+        portf=0
     else
         is_proxy=true
         a="${var%:*}"
@@ -52,13 +38,23 @@ if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
     fi
 else
   echo "No internet conneccted.."
+  echo "$end_title"
   exit
 fi
 
+count=0
+for i in "$@"
+do
+if  [[ -f "$i" ]]
+then  
+    count=$(( $count + 1))
+fi
+done
 
 if [ $# -eq 0 ]
 then
     echo "please specify the file you want to rename"
+    echo "$end_title"
     exit
 elif [ $# -eq 1 ]
 then
@@ -72,17 +68,33 @@ then
         finalfilename="/"${intfilename#*//}""
         cd $jarfileaddress
         java -jar rename.jar $is_proxy "$b" "$portf" "$finalfilename"
-        deletefileone="${finalfilename%.*}-001.pdf"
-        deletefiletwo="${finalfilename%.*}-002.pdf"
-        rm "$deletefiletwo"
-        rm "$deletefileone"
     fi
+    echo "$end_title"
+elif [ $count -eq $# ] 
+then
+    echo "passed *.pdf"
+    current="$(pwd)"
+    echo "'$(pwd)'"
+    goback="$(pwd)"
+    find "$(pwd)" -maxdepth 1 -type f -exec echo "{}" >> temp.txt \;
+    while IFS='' read -r line || [ -n "$line" ]; do
+        if [ "${line:(-4)}" == ".pdf" ]
+        then
+            echo " Working on $line"
+            cd $jarfileaddress
+            java -jar rename.jar $is_proxy "$b" "$portf" "$line"
+            echo "$end_title"
+        fi
+        done < temp.txt
+    cd "$goback"
+    rm temp.txt
 elif [ $# -eq 2 ]
 then
     if [ "$1" = "--delete" ] || [ "$1" = "-d" ]
     then
         cd $jarfileaddress
         java -jar rename.jar $is_proxy "$b" "$portf" "$1" "$2"
+        echo "$end_title"
     elif [ "$1" = "--force" ] || [ "$1" = "-f" ] || [ "$1" = "-c" ] || [ "$1" = "--complete" ]
     then
         intfilename="$( cd "$( dirname "$2" )" && pwd )/$2"
@@ -90,10 +102,7 @@ then
         finalfilename="/"${intfilename#*//}""
         cd $jarfileaddress
         java -jar rename.jar $is_proxy "$b" "$portf" "$1" "$finalfilename"
-        deletefileone="${finalfilename%.*}-001.pdf"
-        deletefiletwo="${finalfilename%.*}-002.pdf"
-        rm "$deletefiletwo"
-        rm "$deletefileone"
+        echo "$end_title"
     elif [ "$1" = "--all" ] || [ "$1" = "-a" ]
     then
         current="$(pwd)"
@@ -104,10 +113,7 @@ then
         while IFS='' read -r line || [ -n "$line" ]; do
             cd $jarfileaddress
             java -jar rename.jar $is_proxy "$b" "$portf" "$line"
-            deletefileone="${line%.*}-001.pdf"
-            deletefiletwo="${line%.*}-002.pdf"
-            rm "$deletefiletwo"
-            rm "$deletefileone"
+            echo "$end_title"
             done < temp.txt
         cd "$goback"
         echo "$(pwd)"
@@ -121,6 +127,7 @@ then
     then
         cd $jarfileaddress
         java -jar rename.jar $is_proxy "$b" "$portf" "$1" "$2" "$3"
+        echo "$end_title"
     elif [ \( "$1" = "--all" -o "$1" = "-a" -o "$1" = "-c" -o "$1" = "--complete" \) -a \( "$2" = "--all" -o "$2" = "-a" -o "$2" = "-c" -o "$2" = "--complete" \) ]
     then
         current="$(pwd)"
@@ -131,10 +138,7 @@ then
         while IFS='' read -r line || [ -n "$line" ]; do
             cd $jarfileaddress
             java -jar rename.jar $is_proxy "$b" "$portf" "$1" "$line"
-            deletefileone="${line%.*}-001.pdf"
-            deletefiletwo="${line%.*}-002.pdf"
-            rm "$deletefiletwo"
-            rm "$deletefileone"
+            echo "$end_title"
             done < temp.txt
         cd "$goback"
         echo "$(pwd)"
@@ -146,12 +150,10 @@ then
         finalfilename="/"${intfilename#*//}""
         cd $jarfileaddress
         java -jar rename.jar false 0 0 "$1" "$2" "$finalfilename"
-        deletefileone="${finalfilename%.*}-001.pdf"
-        deletefiletwo="${finalfilename%.*}-002.pdf"
-        rm "$deletefiletwo"
-        rm "$deletefileone"
+        echo "$end_title"
     else
     echo "Please enter proper options and parameters"
+    echo "$end_title"
     fi
 else
     echo "Please enter proper options and parameters"
