@@ -20,7 +20,7 @@ Grant the executable permission for install3.sh:
 chmod +x install.sh
 ```
 
-Now execute the install3.sh file with bash shell:
+Now execute the install.sh file with bash shell:
 ```
 bash install.sh
 ```
