@@ -5,7 +5,7 @@
 When we download a research paper in pdf format, the file name provides no clue of the article's topic. This application addresses the issue by renaming the PDF using the format 'YEAR_CONFERENCE_AUTHOR_TITLE'. This application extracts conference, year, author name, and title information from the Internet.
 
 ## Prerequisite
-JDK-18
+JDK-11 or higher
 
 ## Installation
 
@@ -17,12 +17,12 @@ Go in the pdfrename_linux directory.
 
 Grant the executable permission for install3.sh:
 ```
-chmod +x install3.sh
+chmod +x install.sh
 ```
 
 Now execute the install3.sh file with bash shell:
 ```
-bash install3.sh
+bash install.sh
 ```
 Now you can run the pdfrename command.
 
@@ -48,21 +48,17 @@ pdfrename *.pdf
 
 Download the repository and extract it.
 
-Double click on the 'pdfrename_windows_without_jre.mysetup' in the 'pdfrename_windows_installer' to install it.
+Double click on the 'pdfrename.mysetup' in the 'pdfrename_windows' to install it.
 
 Features on windows:
-* Desktop icon.
 * Run with or without a proxy at your convenience. 
-* Save the proxy URLs for later use.
 * Pdfrename action in the right click context menu of files.
 * You can select multiple files and rename them from 'Send to -> pdfrename' in right click context menu.
-* Dedicated GUI to walkthrough each step of renaming the pdf file with clear messages.
-* In the end of the execution a window with 'Execution Completed. Exiting pdfrename'.
+* Dedicated error messages will be printed at the end of the execution.
 
 Steps for Windows:
 
-1. To initiate the rename proces,  either double click on the desktop icon or select the pdfrename option from right click menu of a file. In the case of desktop icon, choose the files using the open button, then click on convert.
-2. Now select whether to proceed with a proxy or not.
-3. When proxy option is selected, you are prompted with an option to choose saved proxies or to use a new proxy address and port.
-4. After selecting the proxy, wait for the program to finish renaming the file. You will be prompted with a message at the end of program execution.
+1. To initiate the rename proces, select the pdfrename option from right click menu of a file.
+2. When proxy is detected, it will use the proxy ip address and port number for getting the information from the web.
+3. After selecting the pdfrename, proper response will be shown at the end of the execution.
 
